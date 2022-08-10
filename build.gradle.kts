@@ -38,8 +38,8 @@ dependencies {
         exclude("org.slf4j")
     }
 
-    annotationProcessor("org.projectlombok:lombok:1.18.16")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.16")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
 
     testImplementation("junit", "junit", "4.12")
 }
