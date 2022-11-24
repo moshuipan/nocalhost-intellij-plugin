@@ -2,9 +2,9 @@ name: build
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ support_jetbrains_222 ]
   pull_request:
-    branches: [ dev ]
+    branches: [ support_jetbrains_222 ]
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform-version: [ 203, 211, 212, 213, 221, 222 ]
+        platform-version: [ 222 ]
     env:
       ORG_GRADLE_PROJECT_platformVersion: ${{ matrix.platform-version }}
 
@@ -35,9 +35,7 @@ jobs:
         sed -i -E "s/serverVersion=(.+)/serverVersion=${{ env.SERVER_VERSION }}/g" src/main/resources/config.properties
         ./gradlew clean buildPlugin
 
-    - name: Push to Coding Artifacts
-      run: |
-        cd build/distributions/
-        PLUGIN_ZIP=$(ls | grep nocalhost-intellij-plugin-)
-        PLUGIN_VERSION="$(git rev-parse --short HEAD)-${{ matrix.platform-version }}"
-        curl -T ${PLUGIN_ZIP} -u ${{ secrets.CODING_ARTIFACTS_USER }}:${{ secrets.CODING_ARTIFACTS_PASS }} "https://nocalhost-generic.pkg.coding.net/nocalhost/plugins/nocalhost-intellij-plugin.zip?version=${PLUGIN_VERSION}"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: nocalhost-intellij-plugin-222
+        path: build/distributions/
