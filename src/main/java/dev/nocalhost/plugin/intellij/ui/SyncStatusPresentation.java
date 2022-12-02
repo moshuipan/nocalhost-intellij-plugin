@@ -113,7 +113,6 @@ public class SyncStatusPresentation implements StatusBarWidget.MultipleTextValue
                 var json = "";
                 try {
                     json = command.execute();
-                    LOG.info("9999999  "+json);
                     List<NhctlDevAssociateQueryResult> results = DataUtils.GSON.fromJson(json, token);
                     services.set(results);
                     project
