@@ -113,6 +113,7 @@ public class SyncStatusPresentation implements StatusBarWidget.MultipleTextValue
                 var json = "";
                 try {
                     json = command.execute();
+                    LOG.info("9999999  "+json);
                     List<NhctlDevAssociateQueryResult> results = DataUtils.GSON.fromJson(json, token);
                     services.set(results);
                     project
@@ -120,7 +121,7 @@ public class SyncStatusPresentation implements StatusBarWidget.MultipleTextValue
                             .syncPublisher(NocalhostSyncUpdateNotifier.NOCALHOST_SYNC_UPDATE_NOTIFIER_TOPIC)
                             .action(results);
 
-                    Thread.sleep(3000);
+                    Thread.sleep(20000);
                 } catch (Exception ex) {
                     LOG.error("Failed to refresh service list: 【" + json + "】", ex);
                 }
